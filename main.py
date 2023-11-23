@@ -1,5 +1,5 @@
 from flask import render_template
-
+from urllib.parse import unquote
 import functions_framework
 
 @functions_framework.http
@@ -18,9 +18,12 @@ def ogp_proxy(request):
     request_args = request.args
     user_agent = request.user_agent.string
 
+    if request_args and "url" in request_args:
+        url = unquote(request_args["url"])
+
     if POCKET_USER_AGENT in user_agent:
         if request_args and "note" in request_args:
             note = request_args["note"]
             return render_template("ogp.html", note=note)
     else:
-        return "TODO: Redirect to given url"
+        return f"TODO: Redirect to {url}"
