@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import redirect, render_template
 from urllib.parse import unquote
 import functions_framework
 
@@ -26,4 +26,4 @@ def ogp_proxy(request):
             note = request_args["note"]
             return render_template("ogp.html", note=note)
     else:
-        return f"TODO: Redirect to {url}"
+        return redirect(url)
