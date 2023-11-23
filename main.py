@@ -23,7 +23,7 @@ def ogp_proxy(request):
 
     if POCKET_USER_AGENT in user_agent:
         if request_args and "note" in request_args:
-            note = request_args["note"]
+            note = unquote(request_args["note"])
             return render_template("ogp.html", note=note)
     else:
         return redirect(url)
