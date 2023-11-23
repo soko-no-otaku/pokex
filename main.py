@@ -13,8 +13,14 @@ def ogp_proxy(request):
         Response object using `make_response`
         <https://flask.palletsprojects.com/en/1.1.x/api/#flask.make_response>.
     """
-    request_args = request.args
+    POCKET_USER_AGENT = "PocketParser"
 
-    if request_args and "note" in request_args:
-        note = request_args["note"]
-    return render_template("ogp.html", note=note)
+    request_args = request.args
+    user_agent = request.user_agent.string
+
+    if POCKET_USER_AGENT in user_agent:
+        if request_args and "note" in request_args:
+            note = request_args["note"]
+            return render_template("ogp.html", note=note)
+    else:
+        return "TODO: Redirect to given url"
