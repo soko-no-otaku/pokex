@@ -2,6 +2,7 @@ from flask import redirect, render_template
 from urllib.parse import unquote, urlparse
 import functions_framework
 
+
 @functions_framework.http
 def pokex(request):
     """HTTP Cloud Function.
