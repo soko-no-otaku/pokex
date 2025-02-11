@@ -1,6 +1,7 @@
 from flask import redirect, render_template
-from urllib.parse import unquote, urlparse
+from urllib.parse import unquote
 import functions_framework
+import re
 
 
 @functions_framework.http
@@ -19,13 +20,15 @@ def pokex(request):
     request_args = request.args
     user_agent = request.user_agent.string
 
-    if request_args and "url" in request_args:
-        url = unquote(request_args["url"])
-        hostname = urlparse(url).hostname
+    if not "url" in request_args:
+        raise RuntimeError("URL is required.")
 
-    if POCKET_USER_AGENT in user_agent:
-        if request_args and "note" in request_args:
-            note = unquote(request_args["note"])
-            return render_template("ogp.html", note=note, hostname=hostname)
+    url = unquote(request_args["url"])
+    is_x_url = re.search(
+        r"https://x\.com/(?P<username>[0-9a-zA-Z]+)/status/[0-9]+", url
+    )
+
+    if POCKET_USER_AGENT in user_agent and is_x_url:
+        return render_template("ogp.html", username=is_x_url.group("username"))
     else:
         return redirect(url)
