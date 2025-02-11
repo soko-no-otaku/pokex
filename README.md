@@ -1,2 +1,2 @@
-# ogp-proxy
-Proxy-like server that provides social media links with any given notes
+# pokex
+Proxy-like server that improves X links appearance on Pocket
