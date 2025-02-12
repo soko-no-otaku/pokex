@@ -1,4 +1,5 @@
 from flask import redirect, render_template
+from werkzeug.exceptions import BadRequest
 from urllib.parse import unquote
 import functions_framework
 import re
@@ -21,7 +22,7 @@ def pokex(request):
     user_agent = request.user_agent.string
 
     if not "url" in request_args:
-        raise RuntimeError("URL is required.")
+        raise BadRequest()
 
     url = unquote(request_args["url"])
     is_x_url = re.search(
@@ -32,3 +33,8 @@ def pokex(request):
         return render_template("ogp.html", username=is_x_url.group("username"))
     else:
         return redirect(url)
+
+
+@functions_framework.errorhandler(BadRequest)
+def handle_bad_request(e):
+    return "URL is required.", 400

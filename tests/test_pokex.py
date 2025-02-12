@@ -13,9 +13,9 @@ def client() -> Client:
         yield client
 
 
-def test_given_no_url_then_runtime_error_is_raised(client: Client):
+def test_given_no_url_then_400_is_returned(client: Client):
     response = client.get("/")
-    assert response.status_code == 500
+    assert response.status_code == 400
 
 
 def test_when_accessed_from_pocket_and_url_is_x_then_ogp_is_returned(client: Client):
