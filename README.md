@@ -9,4 +9,14 @@ $ curl -A "PocketParser/2.0 (+https://getpocket.com/pocketparser_ua)" "http://lo
 ```
 
 ## Deploy
-TBA
+
+```bash
+gcloud functions deploy pokex \
+  --gen2 \
+  --runtime=python312 \
+  --region=us-west1 \
+  --source=. \
+  --entry-point=pokex \
+  --trigger-http \
+  --allow-unauthenticated
+```
