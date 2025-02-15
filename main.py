@@ -26,7 +26,7 @@ def pokex(request):
 
     url = unquote(request_args["url"])
     is_x_url = re.search(
-        r"https://x\.com/(?P<username>[0-9a-zA-Z]+)/status/[0-9]+", url
+        r"https://x\.com/(?P<username>[0-9a-zA-Z_]+)/status/[0-9]+", url
     )
 
     if POCKET_USER_AGENT in user_agent and is_x_url:
