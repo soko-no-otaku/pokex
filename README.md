@@ -1,6 +1,10 @@
 # pokex
 Proxy-like server that improves X links appearance on Pocket
 
+| Before | After |
+| ------------- | ------------- |
+| ![Before](./assets/before.png) | ![After](./assets/after.png) |
+
 ## Development
 
 ```bash
